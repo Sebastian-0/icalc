@@ -20,6 +20,53 @@ body {
   max-width: 400px;
 }
 
+.history-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 0 10px;
+}
+
+.history-row.hidden {
+  display: none;
+}
+
+.history {
+  flex: 1;
+  text-align: right;
+  color: #888;
+  font-size: 1rem;
+  max-height: 1.5em;
+  overflow: hidden;
+}
+
+.history-toggle {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.8rem;
+  padding: 0 0 0 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.history.expanded {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.history-toggle.expanded {
+  transform: rotate(180deg);
+}
+
+.history-item {
+  padding: 4px 0;
+  transition: color 0.1s;
+}
+
+.history-item:active {
+  color: #ff9f0a;
+}
+
 .display {
   width: 100%;
   background: transparent;
