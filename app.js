@@ -2,8 +2,10 @@ const display = document.getElementById("display");
 const historyEl = document.getElementById("history");
 const historyToggle = document.getElementById("history-toggle");
 const historyRow = document.querySelector(".history-row");
-let history = [];
+let history = JSON.parse(localStorage.getItem("calcHistory") || "[]");
 let justCalculated = false;
+
+renderHistory();
 
 document.querySelector(".buttons").addEventListener("click", (e) => {
   if (!e.target.classList.contains("btn")) return;
@@ -66,6 +68,7 @@ function calculate() {
     if (history.length > 10) history.shift();
     display.value = result;
     justCalculated = true;
+    localStorage.setItem("calcHistory", JSON.stringify(history));
     renderHistory();
   } catch {
     display.value = "Error";
