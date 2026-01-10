@@ -36,7 +36,7 @@ display.addEventListener("keydown", (e) => {
 historyEl.addEventListener("click", (e) => {
   const item = e.target.closest(".history-item");
   if (item) {
-    display.value = item.dataset.result;
+    display.value = item.dataset.expr;
     toggleHistory(false);
   }
 });
@@ -77,7 +77,7 @@ function renderHistory() {
     .reverse()
     .map(
       (h) =>
-        `<div class="history-item" data-result="${h.result}">${h.expr}=${h.result}</div>`,
+        `<div class="history-item" data-expr="${h.expr}">${h.expr}=${h.result}</div>`,
     )
     .join("");
   const empty = history.length === 0;
