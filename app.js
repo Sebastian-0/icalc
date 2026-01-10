@@ -49,7 +49,12 @@ function calculate() {
 
   try {
     const result = Function('"use strict"; return (' + expr + ")")();
-    history.push({ expr, result });
+    if (result == expr) return;
+
+    const item = { expr, result };
+    if (history.includes(item)) return;
+
+    history.push(item);
     if (history.length > 10) history.shift();
     display.value = result;
     renderHistory();
