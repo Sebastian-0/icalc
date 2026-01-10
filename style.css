@@ -23,7 +23,7 @@ body {
 
 .history-row {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   padding: 0 10px;
 }
 
@@ -43,20 +43,19 @@ body {
 .history-toggle {
   background: none;
   border: none;
-  color: #888;
-  font-size: 0.8rem;
+  color: #555;
   padding: 0 0 0 8px;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: color 0.2s;
+}
+
+.history-toggle.expanded {
+  color: #ff9f0a;
 }
 
 .history.expanded {
   max-height: 200px;
   overflow-y: auto;
-}
-
-.history-toggle.expanded {
-  transform: rotate(180deg);
 }
 
 .history-item {
