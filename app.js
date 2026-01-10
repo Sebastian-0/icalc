@@ -3,6 +3,7 @@ const historyEl = document.getElementById("history");
 const historyToggle = document.getElementById("history-toggle");
 const historyRow = document.querySelector(".history-row");
 let history = [];
+let justCalculated = false;
 
 document.querySelector(".buttons").addEventListener("click", (e) => {
   if (!e.target.classList.contains("btn")) return;
@@ -12,10 +13,16 @@ document.querySelector(".buttons").addEventListener("click", (e) => {
 
   if (btn.classList.contains("clear")) {
     display.value = "";
+    justCalculated = false;
   } else if (btn.classList.contains("equals")) {
     calculate();
   } else {
-    display.value += val;
+    if (justCalculated && btn.classList.contains("num")) {
+      display.value = val;
+    } else {
+      display.value += val;
+    }
+    justCalculated = false;
   }
 });
 
@@ -57,6 +64,7 @@ function calculate() {
     history.push(item);
     if (history.length > 10) history.shift();
     display.value = result;
+    justCalculated = true;
     renderHistory();
   } catch {
     display.value = "Error";
