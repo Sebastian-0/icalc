@@ -37,6 +37,7 @@ historyEl.addEventListener("click", (e) => {
   const item = e.target.closest(".history-item");
   if (item) {
     display.value = item.dataset.expr;
+    justCalculated = false;
     toggleHistory(false);
   }
 });
