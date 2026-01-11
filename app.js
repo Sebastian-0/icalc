@@ -24,7 +24,8 @@ document.querySelector(".buttons").addEventListener("click", (e) => {
     calculate();
   } else if (btn.classList.contains("backspace")) {
     if (cursorPos > 0) {
-      expression = expression.slice(0, cursorPos - 1) + expression.slice(cursorPos);
+      expression =
+        expression.slice(0, cursorPos - 1) + expression.slice(cursorPos);
       cursorPos--;
     }
     justCalculated = false;
@@ -138,8 +139,9 @@ function renderDisplay() {
     const textEl = display.querySelector(".display-text");
     const textRect = textEl.getBoundingClientRect();
     const displayRect2 = display.getBoundingClientRect();
-    cursor.style.top = (textRect.top - displayRect2.top + textRect.height * 0.15) + "px";
-    cursor.style.height = (textRect.height * 0.7) + "px";
+    cursor.style.top =
+      textRect.top - displayRect2.top + textRect.height * 0.15 + "px";
+    cursor.style.height = textRect.height * 0.7 + "px";
   });
 }
 
