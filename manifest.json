@@ -1,6 +1,6 @@
 {
-  "name": "Calculator",
-  "short_name": "Calc",
+  "name": "iCalc",
+  "short_name": "iCalc",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1c1c1e",
