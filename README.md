@@ -17,7 +17,7 @@ I want a simple calculatore which focuses on ease of use, which is lightweight a
 
 ## Install on iPhone
 
-1. Open [sebastian-0.github.io/icalc](https://sebastian-0.github.io/icalc) in Safari
+1. Open [https://icalc-sebastian.netlify.app](https://icalc-sebastian.netlify.app) in Safari
 2. Tap the Share button (square with arrow)
 3. Scroll down and tap "Add to Home Screen"
 4. Tap "Add"
