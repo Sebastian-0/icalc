@@ -2,10 +2,14 @@ const display = document.getElementById("display");
 const historyEl = document.getElementById("history");
 const historyToggle = document.getElementById("history-toggle");
 const historyRow = document.querySelector(".history-row");
+
+let expression = "";
+let cursorPos = 0;
 let history = JSON.parse(localStorage.getItem("calcHistory") || "[]");
 let justCalculated = false;
 
 renderHistory();
+renderDisplay();
 
 document.querySelector(".buttons").addEventListener("click", (e) => {
   if (!e.target.classList.contains("btn")) return;
@@ -14,33 +18,58 @@ document.querySelector(".buttons").addEventListener("click", (e) => {
   const val = btn.textContent;
 
   if (btn.classList.contains("clear")) {
-    display.value = "";
+    expression = "";
+    cursorPos = 0;
     justCalculated = false;
   } else if (btn.classList.contains("equals")) {
     calculate();
   } else {
     if (justCalculated && btn.classList.contains("num")) {
-      display.value = val;
+      expression = val;
+      cursorPos = expression.length;
     } else {
-      display.value += val;
+      expression =
+        expression.slice(0, cursorPos) + val + expression.slice(cursorPos);
+      cursorPos++;
     }
     justCalculated = false;
   }
+  renderDisplay();
 });
 
-display.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    calculate();
+display.addEventListener("click", (e) => {
+  const chars = display.querySelectorAll(".char");
+  if (chars.length === 0) {
+    cursorPos = 0;
+    renderDisplay();
+    return;
   }
+
+  const clickX = e.clientX;
+  let newPos = expression.length;
+
+  for (let i = 0; i < chars.length; i++) {
+    const rect = chars[i].getBoundingClientRect();
+    const charMid = rect.left + rect.width / 2;
+    if (clickX < charMid) {
+      newPos = i;
+      break;
+    }
+  }
+
+  cursorPos = newPos;
+  justCalculated = false;
+  renderDisplay();
 });
 
 historyEl.addEventListener("click", (e) => {
   const item = e.target.closest(".history-item");
   if (item) {
-    display.value = item.dataset.expr;
+    expression = item.dataset.expr;
+    cursorPos = expression.length;
     justCalculated = false;
     toggleHistory(false);
+    renderDisplay();
   }
 });
 
@@ -54,7 +83,7 @@ function toggleHistory(expanded) {
 }
 
 function calculate() {
-  const expr = display.value.replace(/[^0-9+\-*/.() ]/g, "");
+  const expr = expression.replace(/[^0-9+\-*/.() ]/g, "");
   if (!expr) return;
 
   try {
@@ -62,17 +91,51 @@ function calculate() {
     if (result == expr) return;
 
     const item = { expr, result };
-    if (history.includes(item)) return;
-
     history.push(item);
     if (history.length > 10) history.shift();
-    display.value = result;
+    expression = String(result);
+    cursorPos = expression.length;
     justCalculated = true;
     localStorage.setItem("calcHistory", JSON.stringify(history));
     renderHistory();
+    renderDisplay();
   } catch {
-    display.value = "Error";
+    expression = "Error";
+    cursorPos = expression.length;
+    renderDisplay();
   }
+}
+
+function renderDisplay() {
+  let html = '<span class="display-text">';
+  for (let i = 0; i < expression.length; i++) {
+    html += `<span class="char">${expression[i]}</span>`;
+  }
+  html += '</span><span class="cursor"></span>';
+  display.innerHTML = html;
+
+  requestAnimationFrame(() => {
+    const cursor = display.querySelector(".cursor");
+    const chars = display.querySelectorAll(".char");
+    const displayRect = display.getBoundingClientRect();
+
+    let cursorX;
+    if (chars.length === 0) {
+      cursorX = displayRect.right - displayRect.left - 10;
+    } else if (cursorPos >= chars.length) {
+      const lastChar = chars[chars.length - 1];
+      cursorX = lastChar.offsetLeft + lastChar.offsetWidth;
+    } else {
+      cursorX = chars[cursorPos].offsetLeft;
+    }
+
+    cursor.style.left = cursorX + "px";
+    const textEl = display.querySelector(".display-text");
+    const textRect = textEl.getBoundingClientRect();
+    const displayRect2 = display.getBoundingClientRect();
+    cursor.style.top = (textRect.top - displayRect2.top + textRect.height * 0.15) + "px";
+    cursor.style.height = (textRect.height * 0.7) + "px";
+  });
 }
 
 function renderHistory() {

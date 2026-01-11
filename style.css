@@ -70,17 +70,38 @@ body {
 .display {
   width: 100%;
   background: transparent;
-  border: none;
   color: #fff;
   font-size: 3.5rem;
   text-align: right;
   padding: 20px 10px;
   margin-bottom: 10px;
-  outline: none;
+  min-height: 4.5rem;
+  cursor: text;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
 }
 
-.display::placeholder {
-  color: #fff;
+.display-text:empty::before {
+  content: "0";
+  color: #888;
+}
+
+.display .char {
+  display: inline-block;
+}
+
+.cursor {
+  position: absolute;
+  width: 2px;
+  height: 0.8em;
+  background: #ff9f0a;
+  animation: blink 1s step-end infinite;
+  pointer-events: none;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 .buttons {
