@@ -97,6 +97,7 @@ function calculate() {
     if (result == expr) return;
 
     const item = { expr, result };
+    history = history.filter((h) => h.expr != item.expr); // Remove any duplicates
     history.push(item);
     if (history.length > 10) history.shift();
     expression = String(result);
