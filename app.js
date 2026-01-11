@@ -12,9 +12,8 @@ renderHistory();
 renderDisplay();
 
 document.querySelector(".buttons").addEventListener("click", (e) => {
-  if (!e.target.classList.contains("btn")) return;
-
-  const btn = e.target;
+  const btn = e.target.closest(".btn");
+  if (!btn) return;
   const val = btn.textContent;
 
   if (btn.classList.contains("clear")) {
@@ -23,6 +22,12 @@ document.querySelector(".buttons").addEventListener("click", (e) => {
     justCalculated = false;
   } else if (btn.classList.contains("equals")) {
     calculate();
+  } else if (btn.classList.contains("backspace")) {
+    if (cursorPos > 0) {
+      expression = expression.slice(0, cursorPos - 1) + expression.slice(cursorPos);
+      cursorPos--;
+    }
+    justCalculated = false;
   } else {
     if (justCalculated && btn.classList.contains("num")) {
       expression = val;
