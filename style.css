@@ -147,6 +147,11 @@ body {
   border-radius: 40px;
 }
 
+.btn.paren {
+  background: #a5a5a5;
+  color: #000;
+}
+
 .btn.backspace {
   background: #333;
   color: #fff;

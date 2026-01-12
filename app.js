@@ -29,6 +29,20 @@ document.querySelector(".buttons").addEventListener("click", (e) => {
       cursorPos--;
     }
     justCalculated = false;
+  } else if (btn.classList.contains("paren")) {
+    const before = expression.slice(0, cursorPos);
+    const lastChar = before.slice(-1);
+    const openCount = (expression.match(/\(/g) || []).length;
+    const closeCount = (expression.match(/\)/g) || []).length;
+    const paren =
+      lastChar === "" || lastChar === "(" || "+-*/".includes(lastChar)
+        ? "("
+        : openCount > closeCount
+          ? ")"
+          : "(";
+    expression = before + paren + expression.slice(cursorPos);
+    cursorPos++;
+    justCalculated = false;
   } else {
     if (justCalculated && btn.classList.contains("num")) {
       expression = val;
