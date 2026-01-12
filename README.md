@@ -1,6 +1,6 @@
 # iCalc
 
-A PWA calculator for iOS that adds features missing from the default Calculator app.
+A PWA calculator that adds features missing from the default Calculator app in iOS.
 
 ## Why?
 
@@ -15,11 +15,15 @@ I want a simple calculatore which focuses on ease of use, which is lightweight a
 - Editable expressions with movable cursor
 - Calculation history (persists across sessions)
 
-## Install on iPhone
+## Install
 
-1. Open [https://icalc-sebastian.netlify.app](https://icalc-sebastian.netlify.app) in Safari
-2. Tap the Share button (square with arrow)
-3. Scroll down and tap "Add to Home Screen"
-4. Tap "Add"
+### iPhone (Safari)
+1. Open [icalc-sebastian.netlify.app](https://icalc-sebastian.netlify.app) in Safari
+2. Tap Share (square with arrow)
+3. Tap "Add to Home Screen"
 
-The app icon appears on your home screen and runs fullscreen like a native app.
+### Android (Chrome)
+1. Open [icalc-sebastian.netlify.app](https://icalc-sebastian.netlify.app) in Chrome
+2. Tap menu (three dots) → "Add to Home Screen" or "Install app"
+
+The app runs fullscreen like a native app and works offline.
