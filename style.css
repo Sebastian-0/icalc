@@ -13,7 +13,7 @@ body {
   justify-content: center;
   align-items: flex-end;
   padding: 20px;
-  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 }
 
 .calculator {
