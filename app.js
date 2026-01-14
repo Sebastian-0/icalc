@@ -157,6 +157,15 @@ function renderDisplay() {
     cursor.style.top =
       textRect.top - displayRect2.top + textRect.height * 0.15 + "px";
     cursor.style.height = textRect.height * 0.7 + "px";
+
+    // Scroll to show cursor
+    const cursorRight = cursorX + 10;
+    const cursorLeft = cursorX - 10;
+    if (cursorRight > display.scrollLeft + display.clientWidth) {
+      display.scrollLeft = cursorRight - display.clientWidth;
+    } else if (cursorLeft < display.scrollLeft) {
+      display.scrollLeft = cursorLeft;
+    }
   });
 }
 
