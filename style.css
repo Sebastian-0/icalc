@@ -80,6 +80,8 @@ body {
   user-select: none;
   -webkit-user-select: none;
   position: relative;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .display-text:empty::before {
